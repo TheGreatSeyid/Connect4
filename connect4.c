@@ -2,6 +2,8 @@
 #include <assert.h>
 #include <string.h>
 
+int main();
+
 void mapViz(char map[][9]){
 	for (int i = 0;i < 8;i++){
 		for (int j = 0;j < 9;j++)
@@ -21,12 +23,13 @@ void move(char move, char map[][9]){
 	puts("Enter column you want to enter your disk");
 	scanf("%d",&column);
 
-	for (int i = 1;i < 6;i++){
+	for (int i = 1;i < 7;i++){
 		if (map[i+1][column+1] != ' '){
 			if (move == 'r')
 				map[i][column+1] = '*';
 			else
 				map[i][column+1] = 'o';
+			break;
 		}
 	}
 
@@ -48,11 +51,7 @@ int main(){
     printf("Which color you choose r/y: ");
     char answer;
     scanf("%c",&answer);
-    if(toupper(answer)=='R')
-        answer='*';
-    else
-	answer = 'o';
-
+    
     move(answer,map);
     
 

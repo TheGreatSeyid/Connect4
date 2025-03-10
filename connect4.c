@@ -44,13 +44,16 @@ int main(){
         {{'1'},{' '},{' '},{' '},{' '},{' '},{' '},{' '},{'1'}},
         {{' '},{'1'},{'2'},{'3'},{'4'},{'5'},{'6'},{'7'},{' '}}
     };
-    //mapViz(map);
+    mapViz(map);
     printf("Which color you choose r/y: ");
     char answer;
     scanf("%c",&answer);
-    if(toupper(answer)=='R'){
+    if(toupper(answer)=='R')
         answer='*';
-    }
+    else
+	answer = 'o';
+
+    move(answer,map);
     
 
     return 0;

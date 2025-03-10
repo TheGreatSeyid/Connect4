@@ -2,10 +2,10 @@
 #include <assert.h>
 #include <string.h>
 
-void mapViz(char *map){
+void mapViz(char map[][9]){
 	for (int i = 0;i < strlen(map);i++){
-		for (int j = 0;j < strlen(map[i]);j++)
-			printf("%c",map[i][j]);
+		for (int j = 0;j < 9;j++)
+			printf("%c ",map[i][j]);
 		printf("\n");
 	}
 
@@ -24,5 +24,7 @@ int main(){
         {{'1'},{' '},{' '},{' '},{' '},{' '},{' '},{' '},{'1'}},
         {{' '},{'1'},{'2'},{'3'},{'4'},{'5'},{'6'},{'7'},{' '}}
     };
+    mapViz(map);
+    return 0;
 
 }

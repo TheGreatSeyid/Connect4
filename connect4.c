@@ -8,10 +8,7 @@ void mapViz(char map[][9]){
 			printf("%c ",map[i][j]);
 		printf("\n");
 	}
-
 }
-
-
 
 int main(){
 	char map[8][9]={
@@ -24,8 +21,16 @@ int main(){
         {{'1'},{' '},{' '},{' '},{' '},{' '},{' '},{' '},{'1'}},
         {{' '},{'1'},{'2'},{'3'},{'4'},{'5'},{'6'},{'7'},{' '}}
     };
+    //mapViz(map);
+    printf("Which color you choose r/y: ");
+    char answer;
+    scanf("%c",&answer);
+    if(toupper(answer)=='R'){
+        answer='*';
+    }
+    
 
-	mapViz(map);
-	return 0;
+    return 0;
 
 }
+

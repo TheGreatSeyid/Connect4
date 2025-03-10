@@ -13,6 +13,9 @@ char map[8][9]={
     {{' '},{'1'},{'2'},{'3'},{'4'},{'5'},{'6'},{'7'},{' '}}
 };
 
+char turn = 'r';
+int main();
+
 void mapViz(char map[][9]){
 	for (int i = 0;i < 8;i++){
 		for (int j = 0;j < 9;j++)
@@ -31,21 +34,22 @@ void mapColor(char map[][9],char answer){
     }
     map[row][choice]=answer;
     
-    mapViz(map);
+    if (answer == '*')
+	turn = 'y';
+    else
+	turn = 'r';
     main();
 }
 int main(){
 	
     mapViz(map);
-    printf("Which color you choose r/y: ");
     char answer;
-    scanf(" %c",&answer);
-    if(toupper(answer)=='R'){
-        answer='*';
-    }
-    if(toupper(answer)=='Y'){
-        answer='o';
-    }
+
+    if (turn == 'r')
+	answer = '*';
+    else
+	answer = 'o';
+    
     mapColor(map,answer);
     
 

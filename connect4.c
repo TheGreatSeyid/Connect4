@@ -5,7 +5,7 @@
 void mapViz(char *map){
 	for (int i = 0;i < strlen(map);i++){
 		for (int j = 0;j < strlen(map[i]);j++)
-			printf("%c",);
+			printf("%c",map[i][j]);
 		printf("\n");
 	}
 

@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <assert.h>
+#include <string.h>
 
 void mapViz(char *map){
-	for (int i = 0;i < sizeof(map)/sizeof(map[1]);i++){
-		for (int j = 0;j < sizeof(map[i])/sizeof(map[i][1]);j++)
+	for (int i = 0;i < strlen(map);i++){
+		for (int j = 0;j < strlen(map[i]);j++)
 			printf("%c",);
-
+		printf("\n");
 	}
 
 }

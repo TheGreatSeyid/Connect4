@@ -10,7 +10,6 @@ void mapViz(char map[][9]){
 	}
 }
 
-<<<<<<< HEAD
 void move(char move, char map[][9]){
 	int column;
 
@@ -34,8 +33,6 @@ void move(char move, char map[][9]){
 }
 
 
-=======
->>>>>>> 38058d963369f462a6a15464f878ce90cf2c20db
 int main(){
 	char map[8][9]={
         {{' '},{'1'},{'2'},{'3'},{'4'},{'5'},{'6'},{'7'},{' '}},

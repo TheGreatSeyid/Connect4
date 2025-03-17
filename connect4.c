@@ -19,22 +19,23 @@ char map[8][9]={
 int WinCheck(char map[][9],char answer){
     int point=0;
     //horizontal check
-    for(int row=6;row>0;row--){
-        for(int column=7;column>0;column--){
+    for(int row=6;row>1;row--){
+        for(int column=7;column>1;column--){
             if(map[row][column]==answer){
                 point++;
             }
             else{
                 point=0;
             }
+	    printf("%d",point);
         }
     }
-    if(point>=4){
+    if(point>=3){
         return 100;
     }
     //vertical check
-    for(int column=7;column>0;column--){
-        for(int row=6;row>0;row--){
+    for(int column=7;column>1;column--){
+        for(int row=6;row>1;row--){
             if(map[row][column]==answer){
                 point++;
             }
@@ -43,7 +44,7 @@ int WinCheck(char map[][9],char answer){
             }
         }
     }
-    if(point>=4){
+    if(point>=3){
         return 100;
     }
     //diagonal check

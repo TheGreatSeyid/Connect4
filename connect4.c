@@ -69,7 +69,10 @@ void Advice(char map[][9],char answer){
             if (point > 0) {
                 if(maxpoint<point){
                     maxpoint=point;
-                    colu=column;
+                    if(map[row-1][column]==' '){
+                        colu=column;
+                    }
+                    
                 }
             }
         }
@@ -88,7 +91,9 @@ void Advice(char map[][9],char answer){
                 if (point > 0) {
                     if(maxpoint<point){
                         maxpoint=point;
-                        colu=column;
+                        if(map[row-i-1][column+i+1]==' '){
+                            colu=column;
+                        }
                     }
                 }
             }
@@ -108,7 +113,9 @@ void Advice(char map[][9],char answer){
                 if (point > 0) {
                     if(maxpoint<point){
                         maxpoint=point;
-                        colu=column;
+                        if(map[row-i-1][column-i-1]=' '){
+                            colu=column;
+                        }
                     }
                 }
             }
@@ -302,12 +309,13 @@ int main(){
             answer='o'; 
         }
         while(winstrike!=100){
+            Advice(map,answer);
             Player1(map,answer);
             if(winstrike==100){
                 printf("Player 1 won");
                 return 0;
             }
-            Advice(map,answer);
+            
             Player2(map,answer);
         }
         printf("Player 2 won");

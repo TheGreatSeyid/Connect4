@@ -68,7 +68,7 @@ int WinCheck(char map[][9],char answer){
 
                 }
                 else{
-                    continue;
+                    break;//or continue i didnt understand what best for it
                 }
                 
             }

@@ -29,7 +29,94 @@ bool Available(char map[][9], int choice){
     return true;
 }
 
+void Advice(char map[][9],char answer){
+    int point = 0;
+    int maxpoint=0;
+    int colu=0;
 
+    // horizontal check
+    for (int row = 6; row > 0; row--) {
+        point = 0;
+        for (int column = 1; column <= 7; column++) {
+            if (map[row][column] == answer) {
+                point += 1;
+            } else {
+                point = 0;
+            }
+            if (point > 0) {
+                if(maxpoint<point){
+                    maxpoint=point;
+                    if(map[row][column-1]==' '){
+                        colu=column-1;
+                    }
+                    else if(map[row][column+1]==' '){
+                        colu=column+1;
+                    }
+                }
+            }
+        }
+    }
+
+    // vertical check
+    for (int column = 1; column <= 7; column++) {
+        point = 0;
+        for (int row = 6; row > 0; row--) {
+            if (map[row][column] == answer) {
+                point += 1;
+            } else {
+                point = 0;
+            }
+            if (point > 0) {
+                if(maxpoint<point){
+                    maxpoint=point;
+                    colu=column;
+                }
+            }
+        }
+    }
+
+    // diagonal check (bottom-left to top-right)
+    for (int row = 6; row > 0; row--) {
+        for (int column = 1; column <= 7; column++) {
+            point = 0;
+            for (int i = 0; i < 4; i++) {
+                if (row - i > 0 && column + i <= 7 && map[row - i][column + i] == answer) {
+                    point += 1;
+                } else {
+                    break;
+                }
+                if (point > 0) {
+                    if(maxpoint<point){
+                        maxpoint=point;
+                        colu=column;
+                    }
+                }
+            }
+        }
+    }
+
+    // diagonal check (from left down to right) 
+    for (int row = 6; row > 0; row--) {
+        for (int column = 7; column > 0; column--) {
+            point = 0;
+            for (int i = 0; i < 4; i++) {
+                if (row - i > 0 && column - i > 0 && map[row - i][column - i] == answer) {
+                    point += 1;
+                } else {
+                    break;
+                }
+                if (point > 0) {
+                    if(maxpoint<point){
+                        maxpoint=point;
+                        colu=column;
+                    }
+                }
+            }
+        }
+    }
+
+    printf("%d",colu);
+}
 int WinCheck(char map[][9], char answer) {
     int point = 0;
 
@@ -220,6 +307,7 @@ int main(){
                 printf("Player 1 won");
                 return 0;
             }
+            Advice(map,answer);
             Player2(map,answer);
         }
         printf("Player 2 won");

@@ -87,6 +87,29 @@ int WinCheck(char map[][9],char answer){
             }
         }
     }
+
+    for(int row=6;row>0;row--){
+        for(int column =1;column<8;column++){
+            for(int i=0;i<4;i++){
+                if(column+i<8 && row-i>0){
+                    if(map[row-i][column+i]==answer){
+                        point+=1;
+                    }
+                    else{
+                        point=0;
+                    }
+                    if(point>=4){
+                        return 100;
+                    }
+
+                }
+                else{
+                    break;//or continue i didnt understand what best for it
+                }
+                
+            }
+        }
+    }
     
 }
 

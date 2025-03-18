@@ -121,8 +121,8 @@ void Advice(char map[][9],char answer){
             }
         }
     }
-
-    printf("%d",colu);
+    if (colu != 0)
+	printf("%d is adviced\n",colu);
 }
 int WinCheck(char map[][9], char answer) {
     int point = 0;

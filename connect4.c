@@ -30,87 +30,74 @@ bool Available(char map[][9], int choice){
 }
 
 
-int WinCheck(char map[][9],char answer){
-    int point=0;
-    //horizontal check
-    for(int row=6;row>0;row--){
-        for(int column=7;column>0;column--){
-            if(map[row][column]==answer){
-                point+=1;
+int WinCheck(char map[][9], char answer) {
+    int point = 0;
+
+    // horizontal check
+    for (int row = 6; row > 0; row--) {
+        point = 0;
+        for (int column = 1; column <= 7; column++) {
+            if (map[row][column] == answer) {
+                point += 1;
+            } else {
+                point = 0;
             }
-            else{
-                point=0;
-            }
-            if(point>=4){
+            if (point >= 4) {
                 return 100;
             }
         }
     }
-    
-    
-    //vertical check
-    for(int column=7;column>0;column--){
-        for(int row=6;row>0;row--){
-            if(map[row][column]==answer){
-                point+=1;
+
+    // vertical check
+    for (int column = 1; column <= 7; column++) {
+        point = 0;
+        for (int row = 6; row > 0; row--) {
+            if (map[row][column] == answer) {
+                point += 1;
+            } else {
+                point = 0;
             }
-            else{
-                point=0;
-            }
-            if(point>=4){
+            if (point >= 4) {
                 return 100;
             }
         }
     }
-    
-    
-    //diagonal check
-    for(int row=6;row>0;row--){
-        for(int column =7;column>0;column--){
-            for(int i=0;i<4;i++){
-                if(column-i>0 && row-i>0){
-                    if(map[row-i][column-i]==answer){
-                        point+=1;
-                    }
-                    else{
-                        point=0;
-                    }
-                    if(point>=4){
-                        return 100;
-                    }
 
+    // diagonal check (bottom-left to top-right)
+    for (int row = 6; row > 0; row--) {
+        for (int column = 1; column <= 7; column++) {
+            point = 0;
+            for (int i = 0; i < 4; i++) {
+                if (row - i > 0 && column + i <= 7 && map[row - i][column + i] == answer) {
+                    point += 1;
+                } else {
+                    break;
                 }
-                else{
-                    break;//or continue i didnt understand what best for it
+                if (point >= 4) {
+                    return 100;
                 }
-                
             }
         }
     }
 
-    for(int row=6;row>0;row--){
-        for(int column =1;column<8;column++){
-            for(int i=0;i<4;i++){
-                if(column+i<8 && row-i>0){
-                    if(map[row-i][column+i]==answer){
-                        point+=1;
-                    }
-                    else{
-                        point=0;
-                    }
-                    if(point>=4){
-                        return 100;
-                    }
-
+    // diagonal check (from left down to right) 
+    for (int row = 6; row > 0; row--) {
+        for (int column = 7; column > 0; column--) {
+            point = 0;
+            for (int i = 0; i < 4; i++) {
+                if (row - i > 0 && column - i > 0 && map[row - i][column - i] == answer) {
+                    point += 1;
+                } else {
+                    break;
                 }
-                else{
-                    break;//or continue i didnt understand what best for it
+                if (point >= 4) {
+                    return 100;
                 }
-                
             }
         }
     }
-    
+
+    return 0;
 }
 
 void mapViz(char map[][9]){
@@ -149,9 +136,6 @@ void Player2(char map[][9],char answer){
         scanf("%d",&choice);
     }while(Available(map,choice)==false);
 
-    
-    
-    
     if(answer=='*'){
         answer='o';
     }
@@ -194,7 +178,7 @@ int main(){
 	
     mapViz(map);
     char answer;
-    printf("Hello, plz choose 1-player or 2-players game? 1/2");
+    printf("Hello, plz choose 1-player or 2-players game? 1/2: ");
     scanf("%c",&answer);
     if(answer=='1'){
         do
@@ -211,7 +195,7 @@ int main(){
         while(winstrike!=100){
             Player1(map,answer);
             if(winstrike==100){
-                printf("Player 1 won");
+                printf("Player 1 won ");
                 return 0;
             }
             Computer(map,answer);
@@ -243,5 +227,3 @@ int main(){
     return 0;
 
 }
-
-

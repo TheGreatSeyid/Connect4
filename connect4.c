@@ -19,6 +19,7 @@ char map[8][9]={
 
 int winstrike=0;
 
+
 bool Available(char map[][9], int choice){
     if(choice>7 || choice<1){
         return false;
@@ -29,10 +30,10 @@ bool Available(char map[][9], int choice){
     return true;
 }
 
-void Advice(char map[][9],char answer){
+int Advice(char map[][9],char answer){
+    int colu=1;
     int point = 0;
     int maxpoint=0;
-    int colu=0;
 
     // horizontal check
     for (int row = 6; row > 0; row--) {
@@ -44,15 +45,20 @@ void Advice(char map[][9],char answer){
                 point = 0;
             }
             if (point > 0) {
-                if(maxpoint<point){
-                    maxpoint=point;
-                    if(map[row][column-1]==' '){
-                        colu=column-1;
+                if(map[row][column-1]==' ' || map[row][column+1]==' '){
+                    if(maxpoint<point){
+                        maxpoint=point;
+                        if(map[row][column-1]==' '){
+                            colu=column-1;
+                        }
+                        else if(map[row][column+1]==' '){
+                            colu=column+1;
+                        }
                     }
-                    else if(map[row][column+1]==' '){
-                        colu=column+1;
-                    }
+
                 }
+
+                    
             }
         }
     }
@@ -67,12 +73,13 @@ void Advice(char map[][9],char answer){
                 point = 0;
             }
             if (point > 0) {
-                if(maxpoint<point){
-                    maxpoint=point;
-                    if(map[row-1][column]==' '){
-                        colu=column;
-                    }
-                    
+                if(map[row-1][column]==' '){
+                    if(maxpoint<point){
+                        maxpoint=point;
+                        if(map[row-1][column]==' '){
+                            colu=column;
+                        }
+                    }  
                 }
             }
         }
@@ -89,12 +96,15 @@ void Advice(char map[][9],char answer){
                     break;
                 }
                 if (point > 0) {
-                    if(maxpoint<point){
-                        maxpoint=point;
-                        if(map[row-i-1][column+i+1]==' '){
-                            colu=column;
+                    if(map[row-i-1][column+i+1]==' '){
+                        if(maxpoint<point){
+                            maxpoint=point;
+                            if(map[row-i-1][column+i+1]==' '){
+                                colu=column;
+                            }
                         }
                     }
+                    
                 }
             }
         }
@@ -111,19 +121,23 @@ void Advice(char map[][9],char answer){
                     break;
                 }
                 if (point > 0) {
-                    if(maxpoint<point){
-                        maxpoint=point;
-                        if(map[row-i-1][column-i-1]=' '){
-                            colu=column;
+                    if(map[row-i-1][column-i-1]==' '){
+                        if(maxpoint<point){
+                            maxpoint=point;
+                            if(map[row-i-1][column-i-1]==' '){
+                                colu=column;
+                            }
                         }
                     }
+                    
                 }
             }
         }
     }
-    if (colu != 0)
-	printf("%d is adviced\n",colu);
+	return colu;
 }
+
+
 int WinCheck(char map[][9], char answer) {
     int point = 0;
 
@@ -194,6 +208,7 @@ int WinCheck(char map[][9], char answer) {
     return 0;
 }
 
+
 void mapViz(char map[][9]){
 	for (int i = 0;i < 8;i++){
 		for (int j = 0;j < 9;j++)
@@ -205,6 +220,7 @@ void mapViz(char map[][9]){
 void Player1(char map[][9],char answer){
     int choice;
     int row=6;
+    printf("%d is good idea\n",Advice(map,answer));
     do{
         printf("Please choose column: ");
         scanf("%d",&choice);
@@ -219,23 +235,25 @@ void Player1(char map[][9],char answer){
     map[row][choice]=answer;
     winstrike=WinCheck(map,answer);
     mapViz(map);
+    
 }
 
 void Player2(char map[][9],char answer){
     int choice;
     int row=6;
-    
-    do{
-        printf("Please choose column: ");
-        scanf("%d",&choice);
-    }while(Available(map,choice)==false);
-
     if(answer=='*'){
         answer='o';
     }
     else{
         answer='*';
     }
+    printf("%d is good idea\n",Advice(map,answer));
+    do{
+        printf("Please choose column: ");
+        scanf("%d",&choice);
+    }while(Available(map,choice)==false);
+
+   
     while (map[row][choice]!=' ')
     {
         row-=1;
@@ -243,22 +261,24 @@ void Player2(char map[][9],char answer){
     map[row][choice]=answer;
     winstrike=WinCheck(map,answer);
     mapViz(map);
+    
 }
 
 void Computer(char map[][9],char answer){
     srand(time(NULL));
-    int choice;
-    int row=6;
-    do{
-        choice=rand()%7 + 1;
-    }while(Available(map,choice)==false);
-
     if(answer=='*'){
         answer='o';
     }
     else{
         answer='*';
     }
+    int choice=Advice(map,answer);
+    int row=6;
+    /*do{
+        choice=Advice(map,answer);
+    }while(Available(map,choice)==false);*/
+
+    
     while (map[row][choice]!=' ')
     {
         row-=1;
@@ -309,7 +329,6 @@ int main(){
             answer='o'; 
         }
         while(winstrike!=100){
-            Advice(map,answer);
             Player1(map,answer);
             if(winstrike==100){
                 printf("Player 1 won");

@@ -52,7 +52,28 @@ int WinCheck(char map[][9],char answer){
     
     
     //diagonal check
-    for(int )
+    for(int row=6;row>0;row--){
+        for(int column =7;column>0;column--){
+            for(int i=0;i<4;i++){
+                if(column-i>0 && row-i>0){
+                    if(map[row-i][column-i]==answer){
+                        point+=1;
+                    }
+                    else{
+                        point=0;
+                    }
+                    if(point>=4){
+                        return 100;
+                    }
+
+                }
+                else{
+                    continue;
+                }
+                
+            }
+        }
+    }
     
 }
 
@@ -170,7 +191,6 @@ int main(){
     return 0;
 
 }
-
 
 
 

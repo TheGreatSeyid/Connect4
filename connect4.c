@@ -4,6 +4,8 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdbool.h>
+
 char map[8][9]={
     {{' '},{'1'},{'2'},{'3'},{'4'},{'5'},{'6'},{'7'},{' '}},
     {{'6'},{' '},{' '},{' '},{' '},{' '},{' '},{' '},{'6'}},
@@ -16,6 +18,17 @@ char map[8][9]={
 };
 
 int winstrike=0;
+
+bool Available(char map[][9], int choice){
+    if(choice>7 || choice<1){
+        return false;
+    }
+    if(map[1][choice]!=' '){
+        return false;
+    }
+    return true;
+}
+
 
 int WinCheck(char map[][9],char answer){
     int point=0;
@@ -86,13 +99,21 @@ void mapViz(char map[][9]){
 }
 
 void Player1(char map[][9],char answer){
-    printf("Which column you want: ");
     int choice;
-    scanf("%d",&choice);
     int row=6;
+    do{
+        do{
+            printf("Please choose column: ");
+            scanf("%d",&choice);
+        }while(Available(map,choice)==false);
+
+    }while(Available(map,choice)==false);
+    
+
     while (map[row][choice]!=' ')
     {
         row-=1;
+        
     }
     map[row][choice]=answer;
     winstrike=WinCheck(map,answer);
@@ -100,10 +121,17 @@ void Player1(char map[][9],char answer){
 }
 
 void Player2(char map[][9],char answer){
-    printf("Which column you want: ");
     int choice;
-    scanf("%d",&choice);
     int row=6;
+    do{
+        do{
+            printf("Please choose column: ");
+            scanf("%d",&choice);
+        }while(Available(map,choice)==false);
+
+    }while(Available(map,choice)==false);
+    
+    
     if(answer=='*'){
         answer='o';
     }
@@ -121,7 +149,7 @@ void Player2(char map[][9],char answer){
 
 void Computer(char map[][9],char answer){
     srand(time(NULL));
-    int column=rand() % 7 + 1;
+    int choice=rand() % 7 + 1;
     int row=6;
     if(answer=='*'){
         answer='o';
@@ -129,11 +157,11 @@ void Computer(char map[][9],char answer){
     else{
         answer='*';
     }
-    while (map[row][column]!=' ')
+    while (map[row][choice]!=' ')
     {
         row-=1;
     }
-    map[row][column]=answer;
+    map[row][choice]=answer;
     winstrike=WinCheck(map,answer);
     mapViz(map);
 }
@@ -191,6 +219,5 @@ int main(){
     return 0;
 
 }
-
 
 

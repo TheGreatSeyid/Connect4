@@ -15,41 +15,47 @@ char map[8][9]={
     {{' '},{'1'},{'2'},{'3'},{'4'},{'5'},{'6'},{'7'},{' '}}
 };
 
+int winstrike=0;
 
 int WinCheck(char map[][9],char answer){
     int point=0;
     //horizontal check
-    for(int row=6;row>1;row--){
-        for(int column=7;column>1;column--){
+    for(int row=6;row>0;row--){
+        for(int column=7;column>0;column--){
             if(map[row][column]==answer){
-                point++;
+                point+=1;
             }
             else{
                 point=0;
             }
-	    printf("%d",point);
+            if(point>=4){
+                return 100;
+            }
         }
     }
-    if(point>=3){
-        return 100;
-    }
+    
+    
     //vertical check
-    for(int column=7;column>1;column--){
-        for(int row=6;row>1;row--){
+    for(int column=7;column>0;column--){
+        for(int row=6;row>0;row--){
             if(map[row][column]==answer){
-                point++;
+                point+=1;
             }
             else{
                 point=0;
             }
+            if(point>=4){
+                return 100;
+            }
         }
     }
-    if(point>=3){
-        return 100;
-    }
+    
+    
     //diagonal check
+    for(int )
     
 }
+
 void mapViz(char map[][9]){
 	for (int i = 0;i < 8;i++){
 		for (int j = 0;j < 9;j++)
@@ -57,6 +63,7 @@ void mapViz(char map[][9]){
 		printf("\n");
 	}
 }
+
 void Player1(char map[][9],char answer){
     printf("Which column you want: ");
     int choice;
@@ -67,9 +74,10 @@ void Player1(char map[][9],char answer){
         row-=1;
     }
     map[row][choice]=answer;
-    
+    winstrike=WinCheck(map,answer);
     mapViz(map);
 }
+
 void Player2(char map[][9],char answer){
     printf("Which column you want: ");
     int choice;
@@ -86,7 +94,7 @@ void Player2(char map[][9],char answer){
         row-=1;
     }
     map[row][choice]=answer;
-    
+    winstrike=WinCheck(map,answer);
     mapViz(map);
 }
 
@@ -105,7 +113,7 @@ void Computer(char map[][9],char answer){
         row-=1;
     }
     map[row][column]=answer;
-    
+    winstrike=WinCheck(map,answer);
     mapViz(map);
 }
 
@@ -127,11 +135,15 @@ int main(){
         else{
             answer='o'; 
         }
-        while(WinCheck(map,answer)!=100){
+        while(winstrike!=100){
             Player1(map,answer);
+            if(winstrike==100){
+                printf("Player 1 won");
+                return 0;
+            }
             Computer(map,answer);
         }
-        printf("You won");
+        printf("Computer won");
     }
     else if(answer=='2'){
         do
@@ -145,14 +157,20 @@ int main(){
         else{
             answer='o'; 
         }
-        while(WinCheck(map,answer)!=100){
+        while(winstrike!=100){
             Player1(map,answer);
+            if(winstrike==100){
+                printf("Player 1 won");
+                return 0;
+            }
             Player2(map,answer);
         }
-        printf("You won");
+        printf("Player 2 won");
     }  
     return 0;
 
 }
+
+
 
 
